@@ -1,10 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Vibration } from "react-native";
 import { _colors, dialPadSize, dialPadTextSize } from "../../constant";
 export interface DialPadItemProps {
   onPress: (item: string | number) => void;
   item: string | number;
 }
+const ONE_SECOND_IN_MS = 1000;
 export const DialPadItem = ({ onPress, item }: DialPadItemProps) => {
   const isEmptyButton = item === "";
   const isDelButton = item === "del";
@@ -14,6 +15,7 @@ export const DialPadItem = ({ onPress, item }: DialPadItemProps) => {
       disabled={isEmptyButton}
       accessible={!isEmptyButton}
       onPress={() => {
+        Vibration.vibrate(ONE_SECOND_IN_MS * 0.05);
         onPress(item);
       }}
       style={[styles.wrapper, { borderWidth: isNumberButton ? 1 : 0 }]}
